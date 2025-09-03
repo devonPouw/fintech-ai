@@ -13,7 +13,6 @@ import {
 import * as React from "react";
 
 import { NavChats } from "@/components/nav-chats";
-import { UserSwitcher } from "@/components/user-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +20,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { UserSwitcher } from "@/components/user-switcher";
 
 // This is sample data.
 const data = {
@@ -32,6 +32,7 @@ const data = {
       currency: "USD",
       createdAt: "2025-06-15",
       logo: PiggyBank,
+      avatarImageUrl: "/avatars/devon_newone.jpeg",
     },
     {
       name: "Ralph Lauren",
@@ -40,6 +41,7 @@ const data = {
       currency: "GBP",
       createdAt: "2025-06-15",
       logo: Banknote,
+      avatarImageUrl: "/avatars/ralph_lauren.jpeg",
     },
     {
       name: "Resul Wonderboy",
@@ -48,6 +50,7 @@ const data = {
       currency: "INR",
       createdAt: "2025-06-15",
       logo: Landmark,
+      avatarImageUrl: "/avatars/resul_wonderboy.jpeg",
     },
     {
       name: "Jan Omniscient",
@@ -56,6 +59,7 @@ const data = {
       currency: "EUR",
       createdAt: "2025-06-15",
       logo: Factory,
+      avatarImageUrl: "/avatars/jan_omniscient.jpeg",
     },
     {
       name: "Sam Bashful",
@@ -64,6 +68,7 @@ const data = {
       currency: "JPY",
       createdAt: "2025-06-15",
       logo: LandPlot,
+      avatarImageUrl: "/avatars/sam_bashfull.jpeg",
     },
   ],
   chats: [
