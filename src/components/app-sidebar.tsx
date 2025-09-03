@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   Banknote,
   BookOpen,
@@ -13,11 +12,11 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react";
+import * as React from "react";
 
 // import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -160,7 +159,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <img src={"rabobank_logo_icon.svg"} alt={"Rabobank Logo"} />
       </SidebarHeader>
       <SidebarContent>
         {/* <NavMain items={data.navMain} /> */}
