@@ -14,21 +14,19 @@ interface User {
   currency: string;
   createdAt: string;
   avatarImageUrl: string;
+  messages: ChatMessage[];
 }
 
 interface ChatState {
-  messages: ChatMessage[];
   users: User[];
   loading: boolean;
   error: string | null;
   activePersonId: string | null;
   setActivePersonId: (id: string) => void;
   sendMessage: (userMessage: string) => Promise<void>;
-  getFilteredMessages: () => ChatMessage[];
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
-  messages: [],
   users: [
     {
       name: "Devon Newone",
@@ -37,6 +35,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "USD",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/devon_newone.jpeg",
+      messages: [],
     },
     {
       name: "Ralph Lauren",
@@ -45,6 +44,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "GBP",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/ralph_lauren.jpeg",
+      messages: [],
     },
     {
       name: "Resul Wonderboy",
@@ -53,6 +53,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "INR",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/resul_wonderboy.jpeg",
+      messages: [],
     },
     {
       name: "Jan Omniscient",
@@ -61,6 +62,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "EUR",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/jan_omniscient.jpeg",
+      messages: [],
     },
     {
       name: "Sam Bashful",
@@ -69,6 +71,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "JPY",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/sam_bashfull.jpeg",
+      messages: [],
     },
   ],
   loading: false,
@@ -87,9 +90,15 @@ export const useChatStore = create<ChatState>((set, get) => ({
       chatMessage: userMessage,
       personId,
     };
+    const messages =
+      get().users.find((user) => user.personId === personId)?.messages || [];
 
     set((state) => ({
-      messages: [...state.messages, userMsg],
+      users: state.users.map((user) =>
+        user.personId === personId
+          ? { ...user, messages: [...messages, userMsg] }
+          : user
+      ),
       loading: true,
       error: null,
     }));
@@ -101,7 +110,11 @@ export const useChatStore = create<ChatState>((set, get) => ({
       });
 
       set((state) => ({
-        messages: [...state.messages, response.data],
+        users: state.users.map((user) =>
+          user.personId === personId
+            ? { ...user, messages: [...messages, response.data] }
+            : user
+        ),
         loading: false,
       }));
     } catch (err: unknown) {
@@ -114,10 +127,5 @@ export const useChatStore = create<ChatState>((set, get) => ({
         set({ error: "An unexpected error occurred", loading: false });
       }
     }
-  },
-
-  getFilteredMessages: () => {
-    const { messages, activePersonId } = get();
-    return messages.filter((msg) => msg.personId === activePersonId);
   },
 }));
