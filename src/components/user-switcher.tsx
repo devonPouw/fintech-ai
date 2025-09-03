@@ -9,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -89,7 +88,7 @@ export function UserSwitcher({
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Users
             </DropdownMenuLabel>
-            {users.map((user, index) => (
+            {users.map((user) => (
               <DropdownMenuItem
                 key={user.name}
                 onClick={() => setActiveUser(user)}
@@ -99,7 +98,6 @@ export function UserSwitcher({
                   <user.logo className="size-3.5 shrink-0" />
                 </div>
                 {user.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
