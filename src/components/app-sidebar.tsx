@@ -2,8 +2,6 @@
 
 import {
   Banknote,
-  BookOpen,
-  Bot,
   Factory,
   Frame,
   Landmark,
@@ -11,13 +9,11 @@ import {
   Map,
   PieChart,
   PiggyBank,
-  Settings2,
-  SquareTerminal,
 } from "lucide-react";
 import * as React from "react";
 
-import { NavProjects } from "@/components/nav-projects";
-import { TeamSwitcher } from "@/components/team-switcher";
+import { NavChats } from "@/components/nav-chats";
+import { UserSwitcher } from "@/components/user-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -28,7 +24,7 @@ import {
 
 // This is sample data.
 const data = {
-  teams: [
+  users: [
     {
       name: "Devon Newone",
       personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
@@ -70,94 +66,7 @@ const data = {
       logo: LandPlot,
     },
   ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
+  chats: [
     {
       name: "Design Engineering",
       url: "#",
@@ -183,10 +92,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <img src={"rabobank_logo_icon.svg"} alt={"Rabobank Logo"} />
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        <NavChats chats={data.chats} />
       </SidebarContent>
       <SidebarFooter>
-        <TeamSwitcher teams={data.teams} />
+        <UserSwitcher users={data.users} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
