@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { NavChats } from "@/components/nav-chats";
 import {
   Sidebar,
   SidebarContent,
@@ -96,9 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <img src={"/rabobank-logo-only.png"} alt={"Rabobank Logo"} />
       </SidebarHeader>
-      <SidebarContent>
-        <NavChats chats={data.chats} />
-      </SidebarContent>
+      <SidebarContent></SidebarContent>
       <SidebarFooter>
         <UserSwitcher users={data.users} />
       </SidebarFooter>
