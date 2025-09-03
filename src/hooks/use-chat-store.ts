@@ -2,10 +2,12 @@
 import axios from "axios";
 import { create } from "zustand";
 
-interface ChatMessage {
-  chatMessage: string;
-  personId: string;
-}
+type ChatMessage =
+  | {
+      chatMessage: string;
+      personId: string;
+    }
+  | string;
 
 interface User {
   name: string;
@@ -35,7 +37,28 @@ export const useChatStore = create<ChatState>((set, get) => ({
       currency: "USD",
       createdAt: "2025-06-15",
       avatarImageUrl: "/avatars/devon_newone.jpeg",
-      messages: [],
+      messages: [
+        {
+          chatMessage: "Hallo world",
+          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
+        },
+        {
+          chatMessage: "Sure! I can help you with that.",
+          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
+        },
+        {
+          chatMessage: "Sure, could you please specify the issue?",
+          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
+        },
+        {
+          chatMessage: "I can't update my profile picture.",
+          personId: "e45448e6-bd65-4556-9d9d-f69150d5e8a8",
+        },
+        {
+          chatMessage: "Let me check that for you. Please hold on.",
+          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
+        },
+      ],
     },
     {
       name: "Ralph Lauren",
