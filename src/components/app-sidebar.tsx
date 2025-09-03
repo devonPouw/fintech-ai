@@ -31,7 +31,7 @@ const data = {
       currency: "USD",
       createdAt: "2025-06-15",
       logo: PiggyBank,
-      avatarImageUrl: "/avatars/devon_newone.jpeg",
+      avatarImageUrl: "avatars/devon_newone.jpeg",
     },
     {
       name: "Ralph Lauren",
@@ -40,7 +40,7 @@ const data = {
       currency: "GBP",
       createdAt: "2025-06-15",
       logo: Banknote,
-      avatarImageUrl: "/avatars/ralph_lauren.jpeg",
+      avatarImageUrl: "avatars/ralph_lauren.jpeg",
     },
     {
       name: "Resul Wonderboy",
@@ -49,7 +49,7 @@ const data = {
       currency: "INR",
       createdAt: "2025-06-15",
       logo: Landmark,
-      avatarImageUrl: "/avatars/resul_wonderboy.jpeg",
+      avatarImageUrl: "avatars/resul_wonderboy.jpeg",
     },
     {
       name: "Jan Omniscient",
@@ -58,7 +58,7 @@ const data = {
       currency: "EUR",
       createdAt: "2025-06-15",
       logo: Factory,
-      avatarImageUrl: "/avatars/jan_omniscient.jpeg",
+      avatarImageUrl: "avatars/jan_omniscient.jpeg",
     },
     {
       name: "Sam Bashful",
@@ -67,7 +67,7 @@ const data = {
       currency: "JPY",
       createdAt: "2025-06-15",
       logo: LandPlot,
-      avatarImageUrl: "/avatars/sam_bashfull.jpeg",
+      avatarImageUrl: "avatars/sam_bashfull.jpeg",
     },
   ],
   chats: [
@@ -93,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <img src={"/rabobank-logo-only.png"} alt={"Rabobank Logo"} />
+        <img src={"rabobank-logo-only.png"} alt={"Rabobank Logo"} />
       </SidebarHeader>
       <SidebarContent></SidebarContent>
       <SidebarFooter>

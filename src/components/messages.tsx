@@ -84,7 +84,7 @@ export function Messages() {
         clearInterval(streamIntervalRef.current!);
         setIsStreaming(false);
       }
-    }, 30); // Stream a character every 30ms
+    }, 15); // Stream a character every 15ms
   };
 
   // Clean up interval on unmount
@@ -136,6 +136,13 @@ export function Messages() {
                       </MessageContent>
                     )}
                   </div>
+                  {!isAssistant && (
+                    <MessageAvatar
+                      src="/avatars/user.png"
+                      alt="User"
+                      fallback="User"
+                    />
+                  )}
                 </Message>
               );
             })}
