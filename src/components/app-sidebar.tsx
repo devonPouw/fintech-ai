@@ -4,8 +4,10 @@ import {
   Banknote,
   BookOpen,
   Bot,
+  Factory,
   Frame,
   Landmark,
+  LandPlot,
   Map,
   PieChart,
   PiggyBank,
@@ -14,9 +16,8 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-// import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -27,26 +28,46 @@ import {
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Devon Newone",
+      personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
+      country: "USA",
+      currency: "USD",
+      createdAt: "2025-06-15",
       logo: PiggyBank,
-      plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
+      name: "Ralph Lauren",
+      personId: "e45448e6-bd65-4556-9d9d-f69150d5e8a8",
+      country: "GB",
+      currency: "GBP",
+      createdAt: "2025-06-15",
       logo: Banknote,
-      plan: "Startup",
     },
     {
-      name: "Evil Corp.",
+      name: "Resul Wonderboy",
+      personId: "39250001-f9ad-4e61-9803-b6f9ae6cd95f",
+      country: "IN",
+      currency: "INR",
+      createdAt: "2025-06-15",
       logo: Landmark,
-      plan: "Free",
+    },
+    {
+      name: "Jan Omniscient",
+      personId: "b7df0e5e-e9eb-449e-b2fd-52837c4f6a1e",
+      country: "DE",
+      currency: "EUR",
+      createdAt: "2025-06-15",
+      logo: Factory,
+    },
+    {
+      name: "Sam Bashful",
+      personId: "64643c10-ade3-466f-8125-271578d1430b",
+      country: "JP",
+      currency: "JPY",
+      createdAt: "2025-06-15",
+      logo: LandPlot,
     },
   ],
   navMain: [
@@ -162,11 +183,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <img src={"rabobank_logo_icon.svg"} alt={"Rabobank Logo"} />
       </SidebarHeader>
       <SidebarContent>
-        {/* <NavMain items={data.navMain} /> */}
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <TeamSwitcher teams={data.teams} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronsUpDown, Plus } from "lucide-react"
+import * as React from "react";
+import { ChevronsUpDown, Plus } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -11,28 +11,54 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function TeamSwitcher({
   teams,
 }: {
   teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
+    name: string;
+    logo: React.ElementType;
+    country: string;
+    currency: string;
+  }[];
 }) {
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const { isMobile } = useSidebar();
+  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
   if (!activeTeam) {
-    return null
+    return null;
+  }
+
+  function getCountryAndCurrency(country: string, currency: string) {
+    const countryFlags: Record<string, string> = {
+      USA: "🇺🇸",
+      GB: "🇬🇧",
+      IN: "🇮🇳",
+      DE: "🇩🇪",
+      JP: "🇯🇵",
+    };
+    const currencySymbols: Record<string, string> = {
+      USD: "$",
+      GBP: "£",
+      INR: "₹",
+      EUR: "€",
+      JPY: "¥",
+    };
+    const flag = countryFlags[country] || country;
+    const symbol = currencySymbols[currency] || currency;
+    return (
+      <div className="flex justify-between gap-2">
+        <span className="truncate font-medium">{symbol}</span>
+        <span className="truncate font-medium">{flag}</span>
+      </div>
+    );
   }
 
   return (
@@ -49,7 +75,7 @@ export function TeamSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                {getCountryAndCurrency(activeTeam.country, activeTeam.currency)}
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -61,7 +87,7 @@ export function TeamSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Teams
+              Users
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
@@ -87,5 +113,5 @@ export function TeamSwitcher({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
