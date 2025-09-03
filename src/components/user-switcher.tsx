@@ -1,7 +1,6 @@
 "use client";
 
 import { ChevronsUpDown } from "lucide-react";
-import * as React from "react";
 
 import {
   DropdownMenu,
@@ -17,24 +16,19 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useChatStore } from "@/hooks/use-chat-store";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export function UserSwitcher({
-  users,
-}: {
-  users: {
-    name: string;
-    logo: React.ElementType;
-    country: string;
-    currency: string;
-    personId: string;
-    avatarImageUrl: string;
-  }[];
-}) {
+export function UserSwitcher() {
   const { isMobile } = useSidebar();
-  const [activeUser, setActiveUser] = React.useState(users[0]);
 
-  if (!activeUser) {
+  const setActivePersonId = useChatStore((state) => state.setActivePersonId);
+  const users = useChatStore((state) => state.users);
+  const activePersonId = useChatStore((state) => state.activePersonId);
+  const activePerson =
+    users.find((user) => user.personId === activePersonId) || null;
+
+  if (!activePerson) {
     return null;
   }
 
@@ -81,18 +75,20 @@ export function UserSwitcher({
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <Avatar>
-                  <AvatarImage src={activeUser.avatarImageUrl} />
+                  <AvatarImage src={activePerson.avatarImageUrl} />
                   <AvatarFallback>
-                    {createInitials(activeUser.name)}
+                    {createInitials(activePerson.name)}
                   </AvatarFallback>
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeUser.name}</span>
+                <span className="truncate font-medium">
+                  {activePerson.name}
+                </span>
                 <span className="text-gray-600">
                   {getCountryAndCurrency(
-                    activeUser.country,
-                    activeUser.currency
+                    activePerson.country,
+                    activePerson.currency
                   )}
                 </span>
               </div>
@@ -111,7 +107,7 @@ export function UserSwitcher({
             {users.map((user) => (
               <DropdownMenuItem
                 key={user.name}
-                onClick={() => setActiveUser(user)}
+                onClick={() => setActivePersonId(user.personId)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">

@@ -1,15 +1,5 @@
 "use client";
 
-import {
-  Banknote,
-  Factory,
-  Frame,
-  Landmark,
-  LandPlot,
-  Map,
-  PieChart,
-  PiggyBank,
-} from "lucide-react";
 import * as React from "react";
 
 import {
@@ -21,74 +11,6 @@ import {
 } from "@/components/ui/sidebar";
 import { UserSwitcher } from "@/components/user-switcher";
 
-// This is sample data.
-const data = {
-  users: [
-    {
-      name: "Devon Newone",
-      personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
-      country: "USA",
-      currency: "USD",
-      createdAt: "2025-06-15",
-      logo: PiggyBank,
-      avatarImageUrl: "avatars/devon_newone.jpeg",
-    },
-    {
-      name: "Ralph Lauren",
-      personId: "e45448e6-bd65-4556-9d9d-f69150d5e8a8",
-      country: "GB",
-      currency: "GBP",
-      createdAt: "2025-06-15",
-      logo: Banknote,
-      avatarImageUrl: "avatars/ralph_lauren.jpeg",
-    },
-    {
-      name: "Resul Wonderboy",
-      personId: "39250001-f9ad-4e61-9803-b6f9ae6cd95f",
-      country: "IN",
-      currency: "INR",
-      createdAt: "2025-06-15",
-      logo: Landmark,
-      avatarImageUrl: "avatars/resul_wonderboy.jpeg",
-    },
-    {
-      name: "Jan Omniscient",
-      personId: "b7df0e5e-e9eb-449e-b2fd-52837c4f6a1e",
-      country: "DE",
-      currency: "EUR",
-      createdAt: "2025-06-15",
-      logo: Factory,
-      avatarImageUrl: "avatars/jan_omniscient.jpeg",
-    },
-    {
-      name: "Sam Bashful",
-      personId: "64643c10-ade3-466f-8125-271578d1430b",
-      country: "JP",
-      currency: "JPY",
-      createdAt: "2025-06-15",
-      logo: LandPlot,
-      avatarImageUrl: "avatars/sam_bashfull.jpeg",
-    },
-  ],
-  chats: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -97,7 +19,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent></SidebarContent>
       <SidebarFooter>
-        <UserSwitcher users={data.users} />
+        <UserSwitcher />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
