@@ -2,12 +2,11 @@
 import axios from "axios";
 import { create } from "zustand";
 
-type ChatMessage =
-  | {
-      chatMessage: string;
-      personId: string;
-    }
-  | string;
+interface Message {
+  content: string;
+  id: string;
+  role: string;
+}
 
 interface User {
   name: string;
@@ -16,7 +15,7 @@ interface User {
   currency: string;
   createdAt: string;
   avatarImageUrl: string;
-  messages: ChatMessage[];
+  messages: Message[];
 }
 
 interface ChatState {
@@ -36,29 +35,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
       country: "USA",
       currency: "USD",
       createdAt: "2025-06-15",
-      avatarImageUrl: "/avatars/devon_newone.jpeg",
-      messages: [
-        {
-          chatMessage: "Hallo world",
-          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
-        },
-        {
-          chatMessage: "Sure! I can help you with that.",
-          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
-        },
-        {
-          chatMessage: "Sure, could you please specify the issue?",
-          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
-        },
-        {
-          chatMessage: "I can't update my profile picture.",
-          personId: "e45448e6-bd65-4556-9d9d-f69150d5e8a8",
-        },
-        {
-          chatMessage: "Let me check that for you. Please hold on.",
-          personId: "e0c268c9-1320-4e18-8c5c-1769c40a594c",
-        },
-      ],
+      avatarImageUrl: "avatars/devon_newone.jpeg",
+      messages: [],
     },
     {
       name: "Ralph Lauren",
@@ -66,7 +44,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       country: "GB",
       currency: "GBP",
       createdAt: "2025-06-15",
-      avatarImageUrl: "/avatars/ralph_lauren.jpeg",
+      avatarImageUrl: "avatars/ralph_lauren.jpeg",
       messages: [],
     },
     {
@@ -75,7 +53,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       country: "IN",
       currency: "INR",
       createdAt: "2025-06-15",
-      avatarImageUrl: "/avatars/resul_wonderboy.jpeg",
+      avatarImageUrl: "avatars/resul_wonderboy.jpeg",
       messages: [],
     },
     {
@@ -84,7 +62,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       country: "DE",
       currency: "EUR",
       createdAt: "2025-06-15",
-      avatarImageUrl: "/avatars/jan_omniscient.jpeg",
+      avatarImageUrl: "avatars/jan_omniscient.jpeg",
       messages: [],
     },
     {
@@ -93,7 +71,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       country: "JP",
       currency: "JPY",
       createdAt: "2025-06-15",
-      avatarImageUrl: "/avatars/sam_bashfull.jpeg",
+      avatarImageUrl: "avatars/sam_bashfull.jpeg",
       messages: [],
     },
   ],
@@ -109,9 +87,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
     const personId = get().activePersonId;
     if (!personId) return;
 
-    const userMsg: ChatMessage = {
-      chatMessage: userMessage,
-      personId,
+    const userMsg: Message = {
+      content: userMessage,
+      id: Date.now().toString(),
+      role: "user",
     };
     const messages =
       get().users.find((user) => user.personId === personId)?.messages || [];
@@ -127,15 +106,24 @@ export const useChatStore = create<ChatState>((set, get) => ({
     }));
 
     try {
-      const response = await axios.post("https://api.example.com/chat", {
-        message: userMessage,
-        personId,
-      });
+      const response = await axios.post(
+        "https://fin-coach-ai.apps.cfd06.rabobank.nl/try-a-thon/api/chat",
+        {
+          chatMessage: userMessage,
+          personId,
+        }
+      );
+
+      const reply = {
+        role: "assistant",
+        content: response.data,
+        id: Date.now().toString(),
+      };
 
       set((state) => ({
         users: state.users.map((user) =>
           user.personId === personId
-            ? { ...user, messages: [...messages, response.data] }
+            ? { ...user, messages: [...user.messages, reply] }
             : user
         ),
         loading: false,

@@ -7,20 +7,14 @@ import {
   PromptInputActions,
   PromptInputTextarea,
 } from "@/components/ui/prompt-input";
+import { useChatStore } from "@/hooks/use-chat-store";
 import { ArrowUp, Square } from "lucide-react";
 import { useState } from "react";
 
 export function Prompt() {
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  };
+  const loading = useChatStore((state) => state.loading);
+  const sendMessage = useChatStore((state) => state.sendMessage);
 
   const handleValueChange = (value: string) => {
     setInput(value);
@@ -30,22 +24,28 @@ export function Prompt() {
     <PromptInput
       value={input}
       onValueChange={handleValueChange}
-      isLoading={isLoading}
-      onSubmit={() => handleSubmit}
+      isLoading={loading}
+      onSubmit={() => {
+        sendMessage(input);
+        setInput("");
+      }}
       className="w-full max-w-(--breakpoint-xl)"
     >
       <PromptInputTextarea placeholder="Ask me anything..." />
       <PromptInputActions className="justify-end pt-2">
         <PromptInputAction
-          tooltip={isLoading ? "Stop generation" : "Send message"}
+          tooltip={loading ? "Stop generation" : "Send message"}
         >
           <Button
             variant="default"
             size="icon"
             className="h-8 w-8 rounded-full"
-            onClick={() => handleSubmit}
+            onClick={() => {
+              sendMessage(input);
+              setInput("");
+            }}
           >
-            {isLoading ? (
+            {loading ? (
               <Square className="size-5 fill-current" />
             ) : (
               <ArrowUp className="size-5" />
