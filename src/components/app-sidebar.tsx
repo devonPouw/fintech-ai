@@ -94,7 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <img src={"rabobank_logo_icon.svg"} alt={"Rabobank Logo"} />
+        <img src={"/rabobank-logo-only.png"} alt={"Rabobank Logo"} />
       </SidebarHeader>
       <SidebarContent>
         <NavChats chats={data.chats} />
