@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   PromptInput,
   PromptInputAction,
   PromptInputActions,
   PromptInputTextarea,
 } from "@/components/ui/prompt-input";
-import { Button } from "@/components/ui/button";
 import { ArrowUp, Square } from "lucide-react";
 import { useState } from "react";
 
@@ -32,7 +32,7 @@ export function Prompt() {
       onValueChange={handleValueChange}
       isLoading={isLoading}
       onSubmit={() => handleSubmit}
-      className="w-full max-w-(--breakpoint-md)"
+      className="w-full max-w-(--breakpoint-xl)"
     >
       <PromptInputTextarea placeholder="Ask me anything..." />
       <PromptInputActions className="justify-end pt-2">
