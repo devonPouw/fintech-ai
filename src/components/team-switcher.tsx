@@ -45,11 +45,11 @@ export function TeamSwitcher({
       JP: "🇯🇵",
     };
     const currencySymbols: Record<string, string> = {
-      USD: "$",
-      GBP: "£",
-      INR: "₹",
-      EUR: "€",
-      JPY: "¥",
+      USD: "USD $",
+      GBP: "GBP £",
+      INR: "INR ₹",
+      EUR: "EUR €",
+      JPY: "JPY ¥",
     };
     const flag = countryFlags[country] || country;
     const symbol = currencySymbols[currency] || currency;
