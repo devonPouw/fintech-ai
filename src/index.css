@@ -118,13 +118,14 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--default-font-family);
   }
 
   @font-face {
-    font-family: Myriad Pro;
+    font-family: "Myriad Pro";
     font-style: normal;
     font-weight: 200 700;
     font-display: swap;
-    src: url("/fonts/myriad-pro-webfont/MYRIADPRO-REGULAR.woff") format(".woff");
+    src: url("/fonts/myriad-pro-webfont/MYRIADPRO-REGULAR.woff") format("woff");
   }
 }
