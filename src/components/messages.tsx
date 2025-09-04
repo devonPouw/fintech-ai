@@ -15,9 +15,11 @@ import { useRef } from "react";
 import { useChatStore } from "@/hooks/use-chat-store";
 import { useTextStream } from "./ui/response-stream";
 import { useEffect } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 export function Messages() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const loading = useChatStore((state) => state.loading);
   const activeUser = useChatStore((state) =>
     state.users.find((user) => user.personId === state.activePersonId)
   );
@@ -57,14 +59,20 @@ export function Messages() {
                       fallback="AI"
                     />
                   )}
-                  <div className="max-w-[85%] flex-1 sm:max-w-[75%]">
+                  <div className="max-w-[90%] flex-1 sm:max-w-[75%]">
                     {isAssistant ? (
                       <div className="bg-secondary text-foreground prose rounded-lg p-2">
-                        <div className="overflow-x-auto">
-                          <Markdown>
-                            {isLastAssistant ? displayedText : message.content}
-                          </Markdown>
-                        </div>
+                        {loading && isLastAssistant ? (
+                          <Skeleton className="animate-pulse h-16 w-full" />
+                        ) : (
+                          <div className="overflow-x-auto">
+                            <Markdown>
+                              {isLastAssistant
+                                ? displayedText
+                                : message.content}
+                            </Markdown>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="flex justify-end">

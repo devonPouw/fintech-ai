@@ -89,8 +89,15 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
     const userMsg: Message = {
       content: userMessage,
-      id: Date.now().toString(),
+      id: Date.now().toString() + "-user",
       role: "user",
+    };
+    const pendingAssistantId = Date.now().toString() + "-pending";
+    const pendingAssistantMsg: Message & { pending?: boolean } = {
+      content: "",
+      id: pendingAssistantId,
+      role: "assistant",
+      pending: true,
     };
     const messages =
       get().users.find((user) => user.personId === personId)?.messages || [];
@@ -98,7 +105,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
     set((state) => ({
       users: state.users.map((user) =>
         user.personId === personId
-          ? { ...user, messages: [...messages, userMsg] }
+          ? { ...user, messages: [...messages, userMsg, pendingAssistantMsg] }
           : user
       ),
       loading: true,
@@ -114,29 +121,34 @@ export const useChatStore = create<ChatState>((set, get) => ({
         }
       );
 
-      const reply = {
-        role: "assistant",
-        content: response.data,
-        id: Date.now().toString(),
-      };
-
       set((state) => ({
-        users: state.users.map((user) =>
-          user.personId === personId
-            ? { ...user, messages: [...user.messages, reply] }
-            : user
-        ),
+        users: state.users.map((user) => {
+          if (user.personId !== personId) return user;
+          // Replace the pending assistant message with the real one
+          const updatedMessages = user.messages.map((msg) =>
+            msg.id === pendingAssistantId
+              ? { ...msg, content: response.data, pending: false }
+              : msg
+          );
+          return { ...user, messages: updatedMessages };
+        }),
         loading: false,
       }));
     } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        set({
-          error: err.message || "Failed to fetch response",
-          loading: false,
-        });
-      } else {
-        set({ error: "An unexpected error occurred", loading: false });
-      }
+      // Remove the pending assistant message on error
+      set((state) => ({
+        users: state.users.map((user) => {
+          if (user.personId !== personId) return user;
+          const filteredMessages = user.messages.filter(
+            (msg) => msg.id !== pendingAssistantId
+          );
+          return { ...user, messages: filteredMessages };
+        }),
+        loading: false,
+        error: axios.isAxiosError(err)
+          ? err.message || "Failed to fetch response"
+          : "An unexpected error occurred",
+      }));
     }
   },
 }));

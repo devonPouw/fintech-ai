@@ -16,7 +16,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 160px;
+  max-width: 130px;
 }
 
 .prose table td:first-child:hover {
