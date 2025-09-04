@@ -6,6 +6,7 @@
 
 .prose table th,
 .prose table td {
+  text-align: start;
   border-bottom: 1px solid #cccc; /* Use a hex color or any valid CSS color */
   padding: 0.5rem;
   color: #6b7280;
@@ -15,11 +16,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: block;
-  max-width: 120px;
+  max-width: 160px;
+}
+
+.prose table td:first-child:hover {
+  overflow: visible;
+  white-space: normal;
 }
 
 .prose table th {
   background-color: #f3f4f6; /* Example muted color */
   color: #000000;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem; /* Adjust padding for better alignment */
+  margin: 1rem 0; /* Add margin for spacing */
+}
+
+.prose strong {
+  color: #3f3f3f;
 }

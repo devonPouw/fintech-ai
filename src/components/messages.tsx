@@ -37,7 +37,7 @@ export function Messages() {
   }, [lastAssistantMsg, startStreaming]);
 
   return (
-    <div className="relative flex h-[50%] w-full max-w-(--breakpoint-xl) flex-col overflow-hidden">
+    <div className="relative flex h-[85%] max-h-(--breakpoint-md) w-full max-w-(--breakpoint-xl) flex-col overflow-hidden">
       <div ref={containerRef} className="flex-1 overflow-auto">
         <ChatContainerRoot className="h-full">
           <ChatContainerContent className="space-y-4 p-4">
